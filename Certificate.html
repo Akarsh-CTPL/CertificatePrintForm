@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Certificate</title>
+    <style>
+      
+    body {
+        font-family: Arial, sans-serif;
+        margin: 10px auto;
+        padding: 10px;
+        width: 80%;
+    }
+
+    #logo {
+        width: 25%;
+        height: auto;
+    }
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .header div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header h2 {
+        font-size: 10pt;
+        margin-bottom: 3px;
+        margin-top: 15px;
+    }
+
+    .header h4 {
+        font-size: 16px;
+        margin-top: 0;
+    }
+
+    .certificate-container {
+        padding: 10px;
+    }
+
+    .table-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 0px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 5px 0;
+    }
+
+    table, th, td {
+        border: 1px dotted black;
+        padding: 1px;
+    }
+
+    th, td {
+    border: 1px solid black;
+    padding: 3px; /* Reduced padding for less height */
+    text-align: left;
+    font-size: 5pt;
+}
+th {
+   
+    font-weight: bold;
+    text-align: center;
+}
+
+   /* Specific width adjustments */
+td:nth-child(5), td:nth-child(6) { /* For Part No. and TAC No. */
+    width: 20%;  /* Increase width */
+}
+
+td:nth-child(6), td:nth-child(8) { /* For Voltage and Dated */
+    width: 15%;  /* Increase width */
+}
+
+    input {
+        border: none;
+        width: 100%;
+        outline: none;
+        padding: 1px;
+    }
+
+    .inputData {
+        width: 180px;
+    }
+
+    .labelData {
+        width: 250px;
+    }
+
+    .heading {
+        color: red;
+        font-size: 5pt;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    #date {
+        text-align: right;
+    }
+
+    .section {
+        margin-top: 5px;
+    }
+
+    .para {
+        font-weight: bold;
+        padding-top: 0;
+        font-size: 5pt;
+    }
+
+    .extra-column {
+        width: 33%;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .equal-width {
+        width: 35%;
+    }
+
+    .text-with-image {
+        display: flex;
+        align-items: center;
+        gap: 0px;
+    }
+
+    .text-content {
+        flex: 1;
+    }
+
+    .image-content {
+        flex-shrink: 0;
+    }
+
+    .seal-image {
+        width: 40px;
+        height: auto;
+    }
+
+    .signature-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 15px;
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    .signature-image {
+        width: 60px;
+        height: auto;
+    }
+
+    .labels {
+        font-size: 6pt;
+    }
+
+    .table-container {
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 6px;
+        text-align: left;
+    }
+
+    th {
+       
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .vehicle-label,
+    .sld-label {
+        width: 30%;
+        padding: 8px;
+    }
+    
+</style>
+
+    </style>
+</head>
+<body>
+
+    <div class="certificate-container">
+        <div class="header">
+            <img src="./assets/CTPL_Logo.png" alt="Logo" id="logo">
+            <div>
+                <h2>Installation Certificate</h2>
+                <h4>ELECTRONIC SPEED LIMITATION DEVICE</h4>
+            </div>
+        </div>
+
+        <p id="date" class="labels"><strong>Dated:</strong> 19/02/2025</p>
+       
+        <div class="compressed">
+            <p class="para">To</p>
+            <p class="para">The R.T.O./J.R.T.O: AP-07</p>
+            <p class="para">ANDHRA PRADESH</p>
+        </div>
+
+        <div class="section">
+            <p class="labels">
+                This is to certify that the following vehicle has been fitted with an approved Containe Motoreye/Limits Electronic Speed Limiter,
+                set to a maximum speed of 80 Kmph (+/-2%). It shall not exceed this speed under any circumstances unless the device is tampered 
+                with or the seal is broken by an unauthorized technician or individual.
+            </p>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <!-- Table Headers -->
+                <tr>
+                    <th colspan="2">
+                        <h3 class="heading">VEHICLE DETAILS</h3>
+                    </th>
+                    <th colspan="4">
+                        <h3 class="heading">SLD DETAILS</h3>
+                    </th>
+                </tr>
+        
+                <!-- Vehicle and SLD Details -->
+                <tr>
+                    <td class="vehicle-label"><p class="labels">Make/Model:</p></td>
+                    <td><input type="text" class="labelData"></td>
+                    <td class="sld-label"><p class="labels">Model:</p></td>
+                    <td><input type="text" class="labelData"></td>
+                    <td class="sld-label"><p class="labels">Part No.:</p></td>
+                    <td><input type="text" class="labelData"></td>
+                </tr>
+                <tr>
+                    <td class="vehicle-label"><p class="labels">Reg. No & Date:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">SLD No :</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">TAC No :</p></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td class="vehicle-label"><p class="labels">RC:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">Set Speed:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">Voltage:</p></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td class="vehicle-label"><p class="labels">Engine No.:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">Invoice No.:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels">Dated:</p></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td class="vehicle-label"><p class="labels">Chassis No.:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels"></p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels"></p></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td class="vehicle-label"><p class="labels">Kilometers:</p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels"></p></td>
+                    <td><input type="text"></td>
+                    <td class="sld-label"><p class="labels"></p></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+        </div>
+        
+
+        <div class="section">
+            <div class="text-with-image">
+                <div class="text-content">
+                    <p class="labels">
+                        Containe Motoreye Electronic Speed Limiter Serial No: <strong><u>2 5 4 8 8 2</u></strong>  
+                        Installation Date: <b>19/02/2025</b>  Renewal Due Date:  
+                        <b>19/02/2026</b>.
+                    </p>
+                    <p class="labels">
+                        We have sealed this device at six critical points, and this certificate is issued only after testing.
+                    </p>
+                    <p class="labels">
+                        <strong>VALID FOR 1 YEAR ONLY FOR THE STATE OF ANDHRA PRADESH</strong>
+                    </p>
+                    
+                </div>
+                <div class="image-content">
+                    <img src="./assets/QRCode.jpg" alt="Seal Image" class="seal-image">
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="equal-width"><label for="deviceDate" class="labels">Device Installed Date:</label></td>
+                        <td class="equal-width"><input type="text" id="deviceDate" class="labelData"></td>
+                        <td rowspan="5" class="extra-column">
+                            <p class="labels">For <strong>Containe Technologies Limited</strong></p>
+                            <div class="signature-container">
+                                <img src="./assets/CTPLStamp.jpg" class="signature-image"/>
+                                <img src="./assets/Sign.jpg" class="signature-image"/>
+                            </div>
+                            <div>
+                                <p style="text-align: right" class="labels" style="margin-right: 20px;">Authorised Signatory</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="equal-width"><label for="customerName" class="labels">Customer Name:</label></td>
+                        <td class="equal-width"><input type="text" id="customerName" class="labelData"></td>
+                    </tr>
+                    <tr>
+                        <td class="equal-width"><label for="customerAddress" class="labels">Customer Address:</label></td>
+                        <td class="equal-width"><input type="textarea" id="customerAddress" class="labelData" style="height: 60px; border-color: white;"></td>
+                    </tr>
+                    <tr>
+                        <td class="equal-width"><label for="installDate" class="labels">Installation Date:</label></td>
+                        <td class="equal-width"><input type="text" id="installDate" class="labelData"></td>
+                    </tr>
+                    <tr>
+                        <td class="equal-width"><label for="renewalDate" class="labels">Renewal Date:</label></td>
+                        <td class="equal-width"><input type="text" id="renewalDate" class="labelData"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        </div>
+        <div class="signature-container">
+            <div>
+                <p class="labels">Dealers Seal & Signature</p>
+            </div>
+            <div>
+                <p class="labels">Customer Signatory</p>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>

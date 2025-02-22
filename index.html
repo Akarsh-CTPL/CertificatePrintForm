@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+     <!-- Bootstrap Icons -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container, .preview-container {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .form-container {
+            
+            background: #f8f8f8;
+            border-right: 2px solid #ccc;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .image-preview img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #000;
+            margin: 5px;
+        }
+
+        button {
+            margin-top: 8px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #app {
+            position: relative; /* Ensures absolute positioning works inside */
+        }
+
+        #toolbar {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
+            
+            background: rgba(0, 0, 0, 0.831);
+            width: 90px;  /* Make it a perfect circle */
+            height: 90px; /* Same as width */
+            border-radius: 100%;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            opacity: 0.2;  
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #toolbar:hover {
+            opacity: 1;  
+        }
+
+        /* Button Styling */
+        #toolbar button {
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Make buttons circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3px; /* Spacing between buttons */
+        }
+
+        #toolbar button:hover {
+            background: lightgray;
+        }
+
+
+        #preview {
+            position: relative;
+            overflow: hidden;
+            width: 900px;
+            height: 100%;
+            background: white;
+            margin-left: 50px;
+        }
+
+        #preview > iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100% / var(--zoom));  
+            height: calc(100% / var(--zoom));
+            border: none;
+            transform: scale(var(--zoom));
+            transform-origin: top left; 
+        }
+
+        /* General Card Styling */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        /* Card Heading */
+        .card h4 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            text-transform: uppercase;
+            border-bottom: 2px solid #4e2d87;
+            padding-bottom: 5px;
+        }
+
+        /* Form Fields Inside Cards */
+        .card .form-group {
+            margin-bottom: 15px;
+        }
+
+        .card label {
+            font-weight: bold;
+        }
+
+        /* Input and Textarea Styling */
+        .card textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+           
+        }
+        .card input{
+            
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+        }
+
+        /* Styling for File Upload Inputs */
+        .card .form-control-file {
+            margin-top: 5px;
+        }
+
+        /* Checkbox Grid Styling */
+        .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .checkbox-container label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        .curved {
+            width: 100%;
+            height: auto;
+            background: #4e2d87;
+            color: white; 
+            text-align: center;
+            margin-top: 0;
+        }
+
+        
+
+
+        
+
+
+
+    </style>
+</head>
+<body>
+    
+
+    <div class="form-container">
+
+        <div class="curved">                         
+            <h2 class="text-center mb-4">Fill Certificate Details</h2>               
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1430 80">
+                <path fill="#f8f8f8" d="M-1,35 C120,50,240,30,360,40 C480,50,600,30,720,40 C840,50,960,30,1080,40 C1200,50,1320,30,1440,35L1440,83L0,83Z"></path>
+              </svg>
+              
+                       </div>
+        <div class="container mt-4">  
+            <!-- Invoice & Registration Card -->
+            <div class="card">
+                <h4>Invoice Details</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Invoice No:</label>
+                        <input type="text" class="form-control sync-input" data-field="invoiceNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Dated:</label>
+                        <input type="date" class="form-control sync-input" data-field="dated" oninput="updatePreview()">
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Installation Details Card -->
+            <div class="card">
+                <h4>Installation Details</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Serial No:</label>
+                        <input type="text" class="form-control sync-input" data-field="serialNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Installation Date:</label>
+                        <input type="date" class="form-control sync-input" data-field="installationDate" oninput="updatePreview()">
+                    </div>
+                    
+                    <div class="col-md-6 form-group">
+                        <label>Renewal Date:</label>
+                        <input type="date" class="form-control sync-input" data-field="renewalDate" oninput="updatePreview()">
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Customer Details Card -->
+            <div class="card">
+                <h4>Customer Details</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Customer Name:</label>
+                        <input type="text" class="form-control sync-input" data-field="customerName" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Phone No.:</label>
+                        <input type="text" class="form-control sync-input" data-field="phoneNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>Address:</label>
+                        <textarea class="form-control sync-input" data-field="address" oninput="updatePreview()"></textarea>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Vehicle Details Card -->
+            <div class="card">
+                <h4>Vehicle Details</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Make/Model:</label>
+                        <input type="text" class="form-control sync-input" data-field="makeModel" oninput="updatePreview()">
+                    </div>   
+                    <div class="col-md-6 form-group">
+                        <label>Type:</label>
+                        <input type="text" class="form-control sync-input" data-field="vechType" oninput="updatePreview()">
+                    </div>   
+                    <div class="col-md-6 form-group">
+                        <label>Reg No. </label>
+                        <input type="text" class="form-control sync-input" data-field="regNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Reg Date: </label>
+                        <input type="date" class="form-control sync-input" data-field="regdate" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>RC:</label>
+                        <input type="text" class="form-control sync-input" data-field="rc" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Engine No:</label>
+                        <input type="text" class="form-control sync-input" data-field="engineNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chassis No:</label>
+                        <input type="text" class="form-control sync-input" data-field="chassisNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Kilometer:</label>
+                        <input type="text" class="form-control sync-input" data-field="kilometer" oninput="updatePreview()">
+                    </div>  
+                    <div class="col-md-6 form-group">
+                        <label>Maker Company:</label>
+                        <input type="text" class="form-control sync-input" data-field="maker" oninput="updatePreview()">
+                    </div>       
+                    <div class="col-md-6 form-group">
+                        <label>Date of mfg, Year:</label>
+                        <input type="text" class="form-control sync-input" data-field="mfgYear" oninput="updatePreview()">
+                    </div>           
+                    
+                </div>
+            </div>
+        
+            <!-- Technical Details Card -->
+            <div class="card">
+                <h4>Technical Details</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Model:</label>
+                        <input type="text" class="form-control sync-input" data-field="model" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Part No:</label>
+                        <input type="text" class="form-control sync-input" data-field="partNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>SLD No:</label>
+                        <input type="text" class="form-control sync-input" data-field="sldNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>TAC No:</label>
+                        <input type="text" class="form-control sync-input" data-field="tacNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Set Speed:</label>
+                        <input type="text" class="form-control sync-input" data-field="setSpeed" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Voltage:</label>
+                        <input type="text" class="form-control sync-input" data-field="voltage" oninput="updatePreview()">
+                    </div>
+
+                   
+                </div>
+            </div>
+
+
+         <!-- Sealing Points Section -->
+        <div class="card">
+            <h4>Sealing Points</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="filter" onchange="updatePreviewCheckbox()" >
+                        <label class="form-check-label">Filter</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="fip" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">FIP</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="sensor" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">Sensor</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="efrtR" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EFRT-R</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="efrtL" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EFRT-L</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="efrtB" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EFRT-B</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="epiFrontCover" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EPI Front Cover</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="epiBackCover" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EPI Back Cover</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="engineECU" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">Engine ECU-EPI SLD Connector Sealing</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="epiSLDDevice" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">EPI SLD Device-Engine ECU</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input sync-checkbox" data-field="vehiclePedal" onchange="updatePreviewCheckbox()">
+                        <label class="form-check-label">Vehicle Pedal-EPI SLD Connector Sealing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h4>DEPARTMENT COPY</h4>
+            <div class="card">
+                <h4>Speed Governor Details :</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>SG Serial No:</label>
+                        <input type="text" class="form-control sync-input" data-field="sgSerialNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>SG Type:</label>
+                        <input type="text" class="form-control sync-input" data-field="sgType" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Report No.:</label>
+                        <input type="text" class="form-control sync-input" data-field="reportNo" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Fitment Certificate No.:</label>
+                        <input type="text" class="form-control sync-input" data-field="fitmentcerti" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>SG Model:</label>
+                        <input type="text" class="form-control sync-input" data-field="sgModel" oninput="updatePreview()">
+                    </div>
+                    <!-- <div class="col-md-6 form-group">
+                        <label>Invoice Date:</label>
+                        <input type="text" class="form-control sync-input" data-field="invoiceDate" oninput="updatePreview()">
+                    </div>    -->
+                    <div class="col-md-6 form-group">
+                        <label>COP Date:</label>
+                        <input type="text" class="form-control sync-input" data-field="copDate" oninput="updatePreview()">
+                    </div>               
+                    <div class="col-md-6 form-group">
+                        <label>Seal No.:</label>
+                        <input type="text" class="form-control sync-input" data-field="sealNo" oninput="updatePreview()">
+                    </div>   
+                    <div class="col-md-6 form-group">
+                        <label>Report Date:</label>
+                        <input type="text" class="form-control sync-input" data-field="reportDate" oninput="updatePreview()">
+                    </div>   
+                    <div class="col-md-6 form-group">
+                        <label>Testing Agency:</label>
+                        <input type="text" class="form-control sync-input" data-field="testingAgency" oninput="updatePreview()">
+                    </div>      
+                </div>
+
+            </div>
+
+            <div class="card">
+               
+                <h4>PRODUCT SATISFACTION REPORT :</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Date & Time:</label>
+                        <input type="text" class="form-control sync-input" data-field="p3dateTime" oninput="updatePreview()">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Batch No.:</label>
+                        <input type="text" class="form-control sync-input" data-field="batchNo" oninput="updatePreview()">
+                    </div>
+                    
+                </div>
+
+              
+            </div>
+
+            <!-- Upload Certificate Images Section -->
+            <div class="card">
+                <h4>Upload Certificate Images :</h4>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Registration Certificate:</label>
+                            <input type="file" class="form-control-file" id="uploadRC" accept="image/*" onchange="previewCertificateImage(this, 'previewRC')">
+                        </div>
+                    
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Vehicle:</label>
+                            <input type="file" class="form-control-file" id="uploadVehicle" accept="image/*" onchange="previewCertificateImage(this, 'previewVehicle')">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Device Installation:</label>
+                            <input type="file" class="form-control-file" id="uploadDevice" accept="image/*" onchange="previewCertificateImage(this, 'previewDevice')">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                    
+                        <div class="form-group">
+                            <label>RTO Seal & Signature:</label>
+                            <input type="file" class="form-control-file" id="uploadRTO" accept="image/*" onchange="previewCertificateImage(this, 'previewRTO')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        
+
+     
+
+             <!-- Download Button -->
+             <div class="text-center mt-4 ">
+                <button class="btn btn-primary" style="background: #4e2d87;" onclick="downloadPDF()">Download PDF</button>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div id="app" style="--zoom: 1">
+        <div id="toolbar">
+            <button onclick="app.style.setProperty('--zoom', parseFloat(app.style.getPropertyValue('--zoom')) + .1)">+</button>
+            <button onclick="app.style.setProperty('--zoom', 1)">Reset</button>
+            <button onclick="app.style.setProperty('--zoom', parseFloat(app.style.getPropertyValue('--zoom')) - .1)">-</button>
+
+           
+        </div>
+        <div id="preview">
+            <iframe id="previewFrame" src="template.html"></iframe>
+        </div>
+    </div>
+      
+
+
+
+
+
+
+
+
+    <script>
+         
+        function updatePreview() {
+            document.querySelectorAll(".sync-input").forEach(input => {
+                let field = input.getAttribute("data-field");
+                let value = input.value;
+                
+                let frame = document.getElementById("previewFrame");
+                if (frame.contentWindow && frame.contentWindow.document) {
+                    frame.contentWindow.document.querySelectorAll("." + field).forEach(element => {
+                        element.textContent = value;
+                    });
+                }
+            });
+        }
+    
+     function previewCertificateImage(input, previewId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    let frame = document.getElementById("previewFrame");
+                    if (frame.contentWindow && frame.contentWindow.document) {
+                        frame.contentWindow.document.getElementById(previewId).innerHTML = 
+                            `<img src="${e.target.result}" style="max-width: 130px; max-height: 130px;">`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+ 
+     async function downloadPDF() {
+         const { jsPDF } = window.jspdf;
+         const doc = new jsPDF({
+             format: "a4",
+             unit: "mm",
+             orientation: "portrait"
+         });
+ 
+         const frame = document.getElementById("previewFrame");
+ 
+         if (!frame.contentWindow || !frame.contentWindow.document) {
+             alert("Error: Preview frame is not loaded yet.");
+             return;
+         }
+ 
+         const frameDoc = frame.contentWindow.document;
+         const page1 = frameDoc.getElementById("installationCertificate");
+         const page2 = frameDoc.getElementById("warrantyCertificate");
+         const page3 = frameDoc.getElementById("fitmentCertificate");
+ 
+         if (!page1 || !page2 || !page3) {
+             alert("Error: Could not find all certificate pages in template.html. Ensure IDs match.");
+             return;
+         }
+ 
+         const pdfWidth = doc.internal.pageSize.getWidth();
+         const pdfHeight = doc.internal.pageSize.getHeight();
+ 
+         async function addPageToPDF(pageElement, isFirstPage = false) {
+             const canvas = await html2canvas(pageElement, {
+                 scale: 2,
+                 useCORS: true
+             });
+ 
+             if (!isFirstPage) {
+                 doc.addPage();
+             }
+             
+             doc.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, pdfWidth, pdfHeight);
+         }
+ 
+         await addPageToPDF(page1, true);
+         await addPageToPDF(page2);
+         await addPageToPDF(page3);
+ 
+         doc.save("certificate.pdf");
+     }
+ 
+     function updatePreviewCheckbox() {
+             console.log("adsad")
+         let frame = document.getElementById("previewFrame");
+ 
+         if (frame.contentWindow && frame.contentWindow.document) {
+             let templateDoc = frame.contentWindow.document;
+             let indexCheckboxes = document.querySelectorAll(".sync-checkbox");
+             let templateCheckboxes = templateDoc.querySelectorAll(".tick-checkbox");
+ 
+             indexCheckboxes.forEach((checkbox, i) => {
+                 if (templateCheckboxes[i]) {
+                     templateCheckboxes[i].checked = checkbox.checked;
+                 }
+             });
+ 
+             // Trigger tick count update inside template.html
+             if (templateDoc.defaultView.updateTickCount) {
+                 templateDoc.defaultView.updateTickCount();
+             }
+         }
+     }
+
+  
+     </script>
+
+</body>
+</html>

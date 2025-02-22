@@ -215,6 +215,31 @@
             text-align: center;
             margin-top: 0;
         }
+        .custom-file-upload {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-file-upload input[type="file"] {
+            display: none; /* Hide default file input */
+        }
+
+        .custom-file-upload label {
+            background-color: #f0e7ff; /* Change color as needed */
+            color: black;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .custom-file-upload label:hover {
+            background-color: #4e2d87;
+            color: white;
+        }
+
 
         
 
@@ -501,36 +526,47 @@
 
             <!-- Upload Certificate Images Section -->
             <div class="card">
-                <h5>Upload Certificate Images :</h5>
+                <h5>Upload Certificate Images:</h5>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Registration Certificate:</label>
-                            <input type="file" class="form-control-file" id="uploadRC" accept="image/*" onchange="previewCertificateImage(this, 'previewRC')">
+                            <div class="custom-file-upload">
+                                <input type="file" id="uploadRC" accept="image/*" onchange="previewCertificateImage(this, 'previewRC')">
+                                <label for="uploadRC">Choose File</label>
+                            </div>
                         </div>
-                    
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Vehicle:</label>
-                            <input type="file" class="form-control-file" id="uploadVehicle" accept="image/*" onchange="previewCertificateImage(this, 'previewVehicle')">
+                            <label>Vehicle Image:</label>
+                            <div class="custom-file-upload">
+                                <input type="file" id="uploadVehicle" accept="image/*" onchange="previewCertificateImage(this, 'previewVehicle')">
+                                <label for="uploadVehicle">Choose File</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Device Installation:</label>
-                            <input type="file" class="form-control-file" id="uploadDevice" accept="image/*" onchange="previewCertificateImage(this, 'previewDevice')">
+                            <div class="custom-file-upload">
+                                <input type="file" id="uploadDevice" accept="image/*" onchange="previewCertificateImage(this, 'previewDevice')">
+                                <label for="uploadDevice">Choose File</label>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                    
                         <div class="form-group">
                             <label>RTO Seal & Signature:</label>
-                            <input type="file" class="form-control-file" id="uploadRTO" accept="image/*" onchange="previewCertificateImage(this, 'previewRTO')">
+                            <div class="custom-file-upload">
+                                <input type="file" id="uploadRTO" accept="image/*" onchange="previewCertificateImage(this, 'previewRTO')">
+                                <label for="uploadRTO">Choose File</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
 
         </div>
 

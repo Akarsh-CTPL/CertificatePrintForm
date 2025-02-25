@@ -244,6 +244,144 @@
         }
 
 
+        #loadingOverlay {
+            display: none; /* Hide it initially */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-size: 18px;
+            z-index: 9999;
+        }
+
+        /* Sliding Squares Loading Spinner */
+        .loadingspinner {
+            --square: 26px;
+            --offset: 30px;
+
+            --duration: 2.4s;
+            --delay: 0.2s;
+            --timing-function: ease-in-out;
+
+            --in-duration: 0.4s;
+            --in-delay: 0.1s;
+            --in-timing-function: ease-out;
+
+            width: calc( 3 * var(--offset) + var(--square));
+            height: calc( 2 * var(--offset) + var(--square));
+            position: relative;
+        }
+
+        .loadingspinner div {
+            display: inline-block;
+            background: #4e2d87;
+            border: none;
+            border-radius: 2px;
+            width: var(--square);
+            height: var(--square);
+            position: absolute;
+            padding: 0px;
+            margin: 0px;
+            
+        }
+
+        .loadingspinner #square1 {
+            left: calc( 0 * var(--offset) );
+            top:  calc( 0 * var(--offset) );
+            animation: square1 var(--duration) var(--delay) var(--timing-function) infinite,
+                    squarefadein var(--in-duration) calc(1 * var(--in-delay)) var(--in-timing-function) both;
+        }
+
+        .loadingspinner #square2 {
+            left: calc( 0 * var(--offset) );
+            top:  calc( 1 * var(--offset) );
+            animation: square2 var(--duration) var(--delay) var(--timing-function) infinite,
+                    squarefadein var(--in-duration) calc(1 * var(--in-delay)) var(--in-timing-function) both;
+        }
+
+        .loadingspinner #square3 {
+            left: calc( 1 * var(--offset) );
+            top:  calc( 1 * var(--offset) );
+            animation: square3 var(--duration) var(--delay) var(--timing-function) infinite,
+                    squarefadein var(--in-duration) calc(2 * var(--in-delay)) var(--in-timing-function) both;
+        }
+
+        .loadingspinner #square4 {
+            left: calc( 2 * var(--offset) );
+            top:  calc( 1 * var(--offset) );
+            animation: square4 var(--duration) var(--delay) var(--timing-function) infinite,
+                    squarefadein var(--in-duration) calc(3 * var(--in-delay)) var(--in-timing-function) both;
+        }
+
+        .loadingspinner #square5 {
+            left: calc( 3 * var(--offset) );
+            top:  calc( 1 * var(--offset) );
+            animation: square5 var(--duration) var(--delay) var(--timing-function) infinite,
+                    squarefadein var(--in-duration) calc(4 * var(--in-delay)) var(--in-timing-function) both;
+        }
+
+        @keyframes square1 {
+            0%      {left: calc( 0 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            8.333%  {left: calc( 0 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            100%    {left: calc( 0 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+        }
+
+        @keyframes square2 {
+            0%      {left: calc( 0 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            8.333%  {left: calc( 0 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            16.67%  {left: calc( 1 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            25.00%  {left: calc( 1 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            83.33%  {left: calc( 1 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            91.67%  {left: calc( 1 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            100%    {left: calc( 0 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+        }
+
+        @keyframes square3 {
+            0%,100% {left: calc( 1 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            16.67%  {left: calc( 1 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            25.00%  {left: calc( 1 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            33.33%  {left: calc( 2 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            41.67%  {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            66.67%  {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            75.00%  {left: calc( 2 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            83.33%  {left: calc( 1 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            91.67%  {left: calc( 1 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+        }
+
+        @keyframes square4 {
+            0%      {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            33.33%  {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            41.67%  {left: calc( 2 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            50.00%  {left: calc( 3 * var(--offset) ); top: calc( 2 * var(--offset) ); }
+            58.33%  {left: calc( 3 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            100%    {left: calc( 3 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+        }
+
+        @keyframes square5 {
+            0%      {left: calc( 3 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            50.00%  {left: calc( 3 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            58.33%  {left: calc( 3 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            66.67%  {left: calc( 2 * var(--offset) ); top: calc( 0 * var(--offset) ); }
+            75.00%  {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+            100%    {left: calc( 2 * var(--offset) ); top: calc( 1 * var(--offset) ); }
+        }
+
+        @keyframes squarefadein {
+            0%      {transform: scale(0.75); opacity: 0.0;}
+            100%    {transform: scale(1.0); opacity: 1.0;}
+        }
+
+
+
+
+
         
 
 
@@ -486,10 +624,10 @@
             <div class="card">
                 <h5>Speed Governor Details :</h5>
                 <div class="row">
-                    <div class="col-md-6 form-group">
+                    <!-- <div class="col-md-6 form-group">
                         <label>SG Serial No:</label>
                         <input type="text" class="form-control sync-input" data-field="sgSerialNo" oninput="updatePreview()">
-                    </div>
+                    </div> -->
                     <!-- <div class="col-md-6 form-group">
                         <label>SG Type:</label>
                         <input type="text" class="form-control sync-input" data-field="sgType" oninput="updatePreview()">
@@ -512,7 +650,7 @@
                     </div>    -->
                     <div class="col-md-6 form-group">
                         <label>COP Date:</label>
-                        <input type="text" class="form-control sync-input" data-field="copDate" oninput="updatePreview()">
+                        <input type="date" class="form-control sync-input" data-field="copDate" oninput="updatePreview()">
                     </div>               
                     <!-- <div class="col-md-6 form-group">
                         <label>Seal No.:</label>
@@ -520,7 +658,7 @@
                     </div>    -->
                     <div class="col-md-6 form-group">
                         <label>Report Date:</label>
-                        <input type="text" class="form-control sync-input" data-field="reportDate" oninput="updatePreview()">
+                        <input type="date" class="form-control sync-input" data-field="reportDate" oninput="updatePreview()">
                     </div>   
                     <!-- <div class="col-md-6 form-group">
                         <label>Testing Agency:</label>
@@ -538,10 +676,10 @@
                         <label>Date & Time:</label>
                         <input type="text" class="form-control sync-input" data-field="p3dateTime" oninput="updatePreview()">
                     </div>
-                    <div class="col-md-6 form-group">
+                    <!-- <div class="col-md-6 form-group">
                         <label>Batch No.:</label>
                         <input type="text" class="form-control sync-input" data-field="batchNo" oninput="updatePreview()">
-                    </div>
+                    </div> -->
                     
                 </div>
 
@@ -604,7 +742,26 @@
                 <button class="btn btn-primary" style="background: #4e2d87;" onclick="downloadPDF()">Download PDF</button>
             </div>
         </div>
+       
         
+
+
+
+
+                
+    </div>
+
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="display: none;">
+        <div class="loadingspinner">
+            <div id="square1"></div>
+            <div id="square2"></div>
+            <div id="square3"></div>
+            <div id="square4"></div>
+            <div id="square5"></div>
+        </div>
+        <p>Generating PDF, please wait...</p>
     </div>
 
 
@@ -631,11 +788,20 @@
 
     <script>
          
-        function updatePreview() {
+         function updatePreview() {
             document.querySelectorAll(".sync-input").forEach(input => {
                 let field = input.getAttribute("data-field");
                 let value = input.value;
-                
+
+                // Check if the input is of type 'date' and format it
+                if (input.type === "date" && value) {
+                    let dateObj = new Date(value);
+                    let day = String(dateObj.getDate()).padStart(2, '0');
+                    let month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+                    let year = dateObj.getFullYear();
+                    value = `${day}-${month}-${year}`; // Convert to DD-MM-YYYY
+                }
+
                 let frame = document.getElementById("previewFrame");
                 if (frame.contentWindow && frame.contentWindow.document) {
                     frame.contentWindow.document.querySelectorAll("." + field).forEach(element => {
@@ -644,6 +810,7 @@
                 }
             });
         }
+
     
      function previewCertificateImage(input, previewId) {
             const file = input.files[0];
@@ -660,54 +827,74 @@
             }
         }
  
-     async function downloadPDF() {
-         const { jsPDF } = window.jspdf;
-         const doc = new jsPDF({
-             format: "a4",
-             unit: "mm",
-             orientation: "portrait"
-         });
- 
-         const frame = document.getElementById("previewFrame");
- 
-         if (!frame.contentWindow || !frame.contentWindow.document) {
-             alert("Error: Preview frame is not loaded yet.");
-             return;
-         }
- 
-         const frameDoc = frame.contentWindow.document;
-         const page1 = frameDoc.getElementById("installationCertificate");
-         const page2 = frameDoc.getElementById("warrantyCertificate");
-         const page3 = frameDoc.getElementById("fitmentCertificate");
- 
-         if (!page1 || !page2 || !page3) {
-             alert("Error: Could not find all certificate pages in template.html. Ensure IDs match.");
-             return;
-         }
- 
-         const pdfWidth = doc.internal.pageSize.getWidth();
-         const pdfHeight = doc.internal.pageSize.getHeight();
- 
-         async function addPageToPDF(pageElement, isFirstPage = false) {
-            const canvas = await html2canvas(pageElement, {
-            scale: 2, 
-            useCORS: true
-        });
+        async function downloadPDF() {
+            showLoading(); // Show spinner
 
- 
-             if (!isFirstPage) {
-                 doc.addPage();
-             }
-             
-             doc.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, pdfWidth, pdfHeight);
-         }
- 
-         await addPageToPDF(page1, true);
-         await addPageToPDF(page2);
-         await addPageToPDF(page3);
- 
-         doc.save("certificate.pdf");
-     }
+            requestAnimationFrame(async () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    format: "a4",
+                    unit: "mm",
+                    orientation: "portrait"
+                });
+
+                const frame = document.getElementById("previewFrame");
+
+                if (!frame.contentWindow || !frame.contentWindow.document) {
+                    alert("Error: Preview frame is not loaded yet.");
+                    hideLoading();
+                    return;
+                }
+
+                const frameDoc = frame.contentWindow.document;
+                const page1 = frameDoc.getElementById("installationCertificate");
+                const page2 = frameDoc.getElementById("warrantyCertificate");
+                const page3 = frameDoc.getElementById("fitmentCertificate");
+
+                if (!page1 || !page2 || !page3) {
+                    alert("Error: Could not find all certificate pages in template.html. Ensure IDs match.");
+                    hideLoading();
+                    return;
+                }
+
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = doc.internal.pageSize.getHeight();
+
+                async function addPageToPDF(pageElement, isFirstPage = false) {
+                    const canvas = await html2canvas(pageElement, {
+                        scale: 2,
+                        useCORS: true
+                    });
+
+                    if (!isFirstPage) {
+                        doc.addPage();
+                    }
+
+                    doc.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, pdfWidth, pdfHeight);
+                }
+
+                await addPageToPDF(page1, true);
+                await addPageToPDF(page2);
+                await addPageToPDF(page3);
+
+                doc.save("certificate.pdf");
+
+                hideLoading();
+            });
+        }
+
+
+        // Function to show loading spinner
+        function showLoading() {
+            document.getElementById("loadingOverlay").style.display = "flex";
+        }
+
+        // Function to hide loading spinner
+        function hideLoading() {
+            document.getElementById("loadingOverlay").style.display = "none";
+        }
+
+
 
 
 

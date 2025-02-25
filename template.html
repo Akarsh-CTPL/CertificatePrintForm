@@ -31,16 +31,19 @@
             text-align: justify;
         }
         .header-img, .footer-img {
-            width: 100%;
+            
             height: auto;
             position: absolute;
             left: 0;
+            
         }
         .header-img {
-            top: 0;
+            top: 3mm;
+            width: 90%;
         }
         .footer-img {
             bottom: 0;
+            width: 100%;
         }
         .content {
             padding-top: 80px;
@@ -53,10 +56,12 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            letter-spacing: -0.1px;
+            
         }
         th, td {
-            border: 1px solid black;
-            padding: .2rem;
+            border: 0.3px solid rgba(0, 0, 0, 0.505);
+            padding: 2px;
             text-align: left;
             line-height: 1;
         }
@@ -81,13 +86,13 @@
                 flex-shrink: 0; 
             }
         .stamp-img {
-            width: 50px; 
+            width: 70px; 
             height: auto;
             padding-left: 10px;
             margin-left: 30px;
         }
         .sign-img{
-            width: 70px; 
+            width: 100px; 
             height: auto;
 
         }
@@ -119,9 +124,14 @@
             font-weight: bold;
             display: inline-block;
             font-size: 9pt;
-            margin-bottom: 15px;
+            margin-bottom: 0px;
             
         }
+        input[type="checkbox"] {
+            vertical-align: middle;
+            
+        }
+
         .certification-text {
             margin-top: 15px;
             text-align: justify;
@@ -130,6 +140,7 @@
             body {
                 margin: 0;
                 padding: 0;
+                padding-top: 1mm;
                 width: 210mm;
                 height: 297mm;
                 page-break-after: always;
@@ -137,12 +148,12 @@
             .certificate-container {
                 width: 100%;
                 height: 100%;
-                border: none; /* Remove border to fit exactly */
+                border: none; 
                 padding: 0;
                 margin: 0;
             }
         }
-
+       
 
         
 
@@ -152,8 +163,9 @@
 <!------------------------------------ Page 1 -------------------------------------------------->
     <div class="certificate-page" id="installationCertificate" style="font-size: 9pt;">
         <img src="assets\img\header-p1.png" class="header-img" alt="Header">
-        <div class="content">
-            <div class="container mt-3">
+        <div class="content" style="margin-top: 3rem;">
+            <div class="container mt-3" >
+                <img src="assets/img/qr-page1.png" alt="" style="position: absolute; bottom: 240px; left: 40px; width: 100px; height: 100px;">
                 <div class="row">
                     <!-- Left Section -->
                     <div class="col-md-9">
@@ -210,31 +222,31 @@
                 
                 <tr>
                     
-                    <th style="width: 20%;">Make & Model</th>
+                    <th style="width: 15%; padding: 5px;">Make & Model</th>
                     <td style="width: 23%;" class="makeModel"></td>   
-                    <th style="width: 17%;">Model</th>
+                    <th style="width: 15%;">Model</th>
                     <td style="width: 12%;" >CTZESGM09</td>
-                    <th style="width: 9%;">Part No</th>
+                    <th style="width: 10%;">Part No</th>
                     <td style="width: 12%;" >CTZESGPT09</td>
                 </tr>
                 <tr>
-                    <th>Reg No. & Date</th>
-                    <td ><span class="regNo"></span> : <span class="regdate"></span></td>
-                    <th>SLD No</th>
+                    <th style="padding: 5px;">Reg No. & Date</th>
+                    <td ><span class="regNo"> </span> &nbsp;&#38&nbsp; <span class="regdate"></span></td>
+                    <th >SLD No</th>
                     <td class="sldNo"></td>
                     <th>TAC No</th>
                     <td >AA1835</td>
                 </tr>
                 <tr>
-                    <th>RC</th>
+                    <th style="padding: 5px;">RC</th>
                     <td class="rc"></td>
-                    <th>Set Speed</th>
+                    <th >Set Speed</th>
                     <td class="setSpeed"></td>
                     <th>Voltage</th>
                     <td >12/24</td>
                 </tr>
                 <tr>
-                    <th>Engine No</th>
+                    <th style="padding: 5px;">Engine No</th>
                     <td class="engineNo"></td>
                     <th>Invoice No</th>
                     <td class="invoiceNo"></td>
@@ -242,7 +254,7 @@
                     <td class="dated"></td>
                 </tr>
                 <tr>
-                    <th>Chassis No</th>
+                    <th style="padding: 5px;">Chassis No</th>
                     <td class="chassisNo"></td>
                     <th></th>
                     <td></td>
@@ -251,7 +263,7 @@
                     
                 </tr>
                 <tr>
-                    <th>Kilometer</th>
+                    <th style="padding: 5px;">Kilometer</th>
                     <td class="kilometer"></td>
                     <th></th>
                     <td></td>
@@ -261,20 +273,20 @@
                 
             </table>
 
-            <p style="margin-top: 10px;">Containe Motoreye Electronic Speed Limiter Serial No: <strong><u><span class="serialNo"></span></u></strong> Installation Date : <strong><span class="installationDate"></span></strong>  Renewal Due Date :  <strong><span class="renewalDate"></span></strong>. 
+            <p style="margin-top: 30px; margin-bottom: 30px ;">Containe Motoreye Electronic Speed Limiter Serial No: <strong><u><span class="serialNo"></span></u></strong> Installation Date : <strong><span class="installationDate"></span></strong>  Renewal Due Date :  <strong><span class="renewalDate"></span></strong>. 
                 We have sealed this device at six certical points and the certificate is being issued only after testing.</p>
             
-            <img src="assets/img/qr-page1.png" alt="" style="position: absolute; top: 465px; right: 50px; width: 50px; height: 50px;">
+            
 
-            <p><strong>VALID FOR 1YEAR ONLY FOR THE STATE OF <span class="stateName"></span></strong></p>
+            <p><strong>VALID FOR 1 YEAR ONLY FOR THE STATE OF <span class="stateName"></span></strong></p>
 
             <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
                 <tr>
                     <th style="width: 10%;">Device Installed Date</th>
                     <td style="width: 23%;" class="installationDate"></td>                    
                     <td rowspan="5" style="width: 9%; text-align: center; vertical-align: middle; padding: 5px;">
-                        <p>For <strong>Containe Technologies Private Limited</strong></p>
-                        <div class="d-flex justify-content-right align-items-center">
+                        <p style="font-size: 8pt;">For <strong>Containe Technologies Limited</strong></p>
+                        <div class="d-flex justify-content-right align-items-center gap-3">
                             <img src="assets\img\ctpl-stamp.png" alt="Stamp" class="stamp-img">
                             <img src="assets\img\ctpl-sign.png" alt="Signature" class="sign-img">
                         </div>
@@ -300,19 +312,19 @@
               
             </table>
 
-            <div class="row align-items-end text-center" style="min-height: 100px; margin-top: 40px; ">
+            <div class="row align-items-end text-center" style="min-height: 100px; margin-top: 70px; ">
             
-                <div class="col-md-6 d-flex align-items-end justify-content-left">
+                <div class="col-md-4 d-flex align-items-end justify-content-right">
+                    <!-- <p><strong>Dealer Seal & Signature</strong></p> -->
+                </div>
+            
+                
+                <div class="col-md-4 d-flex align-items-end justify-content-center">
                     <p><strong>Dealer Seal & Signature</strong></p>
                 </div>
             
                 
-                <!-- <div class="col-md-6 d-flex align-items-end justify-content-right">
-                    
-                </div> -->
-            
-                
-                <div class="col-md-6 text-end">
+                <div class="col-md-4 text-end">
                     <p><strong>Customer Signature </strong></p>
                 </div>
             </div>
@@ -325,20 +337,20 @@
     <div class="certificate-page" id="warrantyCertificate">
         <img src="assets\img\header-p2.png" class="header-img" alt="Header">
         <div class="content">
-            <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+            <table border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 20px;">
                 <tr>
-                    <th style="width: 20%;">Customer Name</th>
+                    <th style="width: 20%; padding: 4px;">Customer Name</th>
                     <td style="width: 23%;" class="customerName"></td>
                     <td rowspan="9" style="width: 9%; text-align: center; vertical-align: middle;">
-                        <img src="assets/img/qr-page2.png" alt="QR Code" style="width: 50px; height: 50px;">
+                        <!-- <img src="assets/img/qr-page2.png" alt="QR Code" style="width: 50px; height: 50px;"> -->
                     </td>
-                    <th style="width: 17%;">Model</th>
+                    <th style="width: 17%; padding: 4px;">Model</th>
                     <td style="width: 12%;" >CTZESGM09</td>
                     <th style="width: 9%;">Part No</th>
                     <td style="width: 12%;" >CTZESGPT09</td>
                 </tr>
                 <tr>
-                    <th>Address</th>
+                    <th style="padding: 4px;">Address</th>
                     <td class="address"></td>
                     <th>SLD No</th>
                     <td class="sldNo"></td>
@@ -346,7 +358,7 @@
                     <td >AA1835</td>
                 </tr>
                 <tr>
-                    <th>Phone No.</th>
+                    <th style="padding: 4px;">Phone No.</th>
                     <td class="phoneNo"></td>
                     <th>Set Speed</th>
                     <td class="setSpeed"></td>
@@ -354,7 +366,7 @@
                     <td >12/24</td>
                 </tr>
                 <tr>
-                    <th>Make & Model</th>
+                    <th style="padding: 4px;">Make & Model</th>
                     <td class="makeModel"></td>
                     <th>Invoice No</th>
                     <td class="invoiceNo"></td>
@@ -362,13 +374,13 @@
                     <td class="dated"></td>
                 </tr>
                 <tr>
-                    <th>Reg No. & Date</th>
-                    <td ><span class="regNo"></span> : <span class="regdate"></span></td>
+                    <th style="padding: 4px;">Reg No. & Date</th>
+                    <td ><span class="regNo"></span>&#38 <span class="regdate"></span></td>
                     <th>Installation Date</th>
                     <td colspan="3" class="installationDate"></td>
                 </tr>
                 <tr>
-                    <th>RC</th>
+                    <th style="padding: 4px;">RC</th>
                     <td class="rc"></td>
                     <th>Renewal Date</th>
                     <td colspan="3" class="renewalDate"></td>
@@ -421,7 +433,7 @@
 
         <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
             <tr>
-                <th style="width: 20%;">Customer Name</th>
+                <th style="width: 20%; padding: 4px;">Customer Name</th>
                 <td style="width: 23%;" class="customerName"></td>
                 <td rowspan="9" style="width: 9%; text-align: center; vertical-align: middle;">
                     <!-- <img src="assets/img/qr-page2.png" alt="QR Code" style="width: 50px; height: 50px;"> -->
@@ -432,7 +444,7 @@
                 <td style="width: 12%;" >CTZESGPT09</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th style="padding: 4px;">Address</th>
                 <td class="address"></td>
                 <th>SLD No</th>
                 <td class="sldNo"></td>
@@ -440,7 +452,7 @@
                 <td >AA1835</td>
             </tr>
             <tr>
-                <th>Phone No.</th>
+                <th style="padding: 4px;">Phone No.</th>
                 <td class="phoneNo"></td>
                 <th>Set Speed</th>
                 <td class="setSpeed"></td>
@@ -448,7 +460,7 @@
                 <td >12/24</td>
             </tr>
             <tr>
-                <th>Make & Model</th>
+                <th style="padding: 4px;">Make & Model</th>
                 <td class="makeModel"></td>
                 <th>Invoice No</th>
                 <td class="invoiceNo"></td>
@@ -456,13 +468,13 @@
                 <td class="dated"></td>
             </tr>
             <tr>
-                <th>Reg No. & Date</th>
+                <th style="padding: 4px;">Reg No. & Date</th>
                 <td ><span class="regNo"></span> : <span class="regdate"></td>
                 <th>Installation Date</th>
                 <td colspan="3" class="installationDate"></td>
             </tr>
             <tr>
-                <th>RC</th>
+                <th style="padding: 4px;">RC</th>
                 <td class="rc"></td>
                 <th>Renewal Date</th>
                 <td colspan="3" class="renewalDate"></td>
@@ -513,7 +525,7 @@
         <p ><strong>NOTE:</strong> Please send duly filled & Singed to the above address</p>    
 
         <div class="container " style="padding-left: 0%;margin-top: 0px; font-size:5pt;">
-            <p style="font-weight: bold; margin-bottom: 0;">We Containe Technologies Pvt.Ltd. having registered office at #794,37-18/28,RajyaLakshmiComplex,DefenceColony,Sainikpuri,Secunderabad-94. T.S., India do hereby 
+            <p style="font-weight: bold; margin-bottom: 0;">We Containe Technologies Limited. having registered office at # 3-13-142/ 314P & 342, Gokul Nagar, Marriguda, Mallapur, Secundrabad, Hyderabad - 500076, India do hereby 
                 Warrant that each of the Containe Motor eye Electronic Speed Limiter Here in after referred as “The product and parts there of manufactured by us will be free from defectin material and Workmanship Subject to the following terms and conditions</p>
             <ul class="list-unstyled" style="margin-bottom: 0;">
                 <li class=""><i class="bi bi-caret-right-fill" style="color: red;"></i> The  Warranty Shall be for a period of 12 months from the date of Sale.</li>
@@ -531,6 +543,8 @@
             </ul>
             <p style="font-weight: bold;"> Warranty shall not apply if the product is in any way altered modified or interfered with by the buyer or other person or if the parts other than those manufactured by us are fitted there in and does not extend to by other part of the vehicle to which the product is fitted. Our general Terms and Conditions of sale apply.</p>
         </div>
+        <!-- <img src="assets/img/qr-page2.png" alt="QR Code" style="width: 50px; height: 50px;"> -->
+        <img src="assets/img/qr-page2.png" alt="QR Code" style="position: absolute; bottom: 130px; left: 40px; width: 100px; height: 100px;">
 
         <div class="row align-items-end text-center" style="min-height: 100px; ">
             
@@ -542,11 +556,12 @@
             <div class="col-md-4 d-flex align-items-end justify-content-center">
                 
             </div>
+            
         
             <!-- Company Signature & Stamp -->
             <div class="col-md-4 text-center">
-                <p>For <strong>Containe Technologies Private Limited</strong></p>
-                <div class="d-flex justify-content-right align-items-center">
+                <p>For <strong>Containe Technologies Limited</strong></p>
+                <div class="d-flex justify-content-right align-items-center gap-3">
                     <img src="assets\img\ctpl-stamp.png" alt="Stamp" class="stamp-img">
                     <img src="assets\img\ctpl-sign.png" alt="Signature" class="sign-img">
                 </div>
@@ -578,12 +593,13 @@
     <div class="certificate-page" id="fitmentCertificate">
         <img src="assets\img\header-p3.png" class="header-img" alt="Header">
         <div class="content">
+            <img src="assets/img/qr-page1.png" alt="" style="position: absolute; bottom: 200px; left: 50px; width: 100px; height: 100px;">
 
             <div class="container mt-3">
             <div class="row">
                 <!-- Left Section -->
                 <div class="col-md-8">
-                    <img src="assets\img\qr-page3.png" alt="QR Code" class="qr-code"> <!-- Replace with actual QR Code -->
+                    <!-- <img src="assets\img\qr-page3.png" alt="QR Code" class="qr-code"> -->
                     <p class="mt-2">
                         <strong>To,</strong> <br>
                         The Regional Transport Authority, <br>
@@ -633,49 +649,49 @@
                 Owner Name : <strong><span class="customerName"></span></strong> 
                  Owner Address: <strong><span class="address"></span></strong></p>
             <p><strong>Dealer Details:-</strong><br>
-                Dealer Name: CONTAINE TECHNOLOGIES PVT LTD 
+                Dealer Name: CONTAINE TECHNOLOGIES  LIMITED
                 Dealer Address: 3-13-142/341P,342,GOKUL NAGAR, MALLAPUR, HYDERABAD 500076.</p>
             <p style="margin-bottom: 3px;"><strong>Speed Governor Details:-</strong></p>
             <table style="width: 100%; border-collapse: collapse; text-align: left;">
                 <tr>
-                    <th style="width: 15%; border: 1px solid #ffffff;">SG Serial No</th>
-                    <td style="width: 17%; border: 1px solid #ffffff;"> <strong style="font-weight: 800;">:</strong> <span class="sgSerialNo"></span></td>
-                    <th style="width: 15%; border: 1px solid #ffffff;">Fitment Date</th>
-                    <td style="width: 17%; border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="installationDate"></span></td>
-                    <th style="width: 15%; border: 1px solid #ffffff;">Manufacturer</th>
-                    <td style="width: 17%; border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> Containe Technologies Pvt Ltd</td>
+                    <th style="width: 15%; ">SG Serial No</th>
+                    <td style="width: 17%; ">  <span class="sgSerialNo"></span></td>
+                    <th style="width: 15%; ">Fitment Date</th>
+                    <td style="width: 17%; " > <span class="installationDate"></span></td>
+                    <th style="width: 15%; ">Manufacturer</th>
+                    <td style="width: 17%; " > Containe Technologies Limited</td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">SG Type</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span >ELECTRONIC</span></td>
-                    <th style="border: 1px solid #ffffff;">TAC No.</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span >AA1835</span></td>
-                    <th style="border: 1px solid #ffffff;">Report No.</th>
-                    <td style="border: 1px solid #ffffff;"><strong style="font-weight: 800;">:</strong> <span >SHL/295/2011-2012/1124/1025</span></td>
+                    <th >SG Type</th>
+                    <td  > <span >ELECTRONIC</span></td>
+                    <th >TAC No.</th>
+                    <td  > <span >AA1835</span></td>
+                    <th >Report No.</th>
+                    <td > <span >SHL/295/2011-2012/1124/1025</span></td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">Fitment Certificate No</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="fitmentcerti"></span></td>
-                    <th style="border: 1px solid #ffffff;">Invoice No.</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="invoiceNo"></span></td>
-                    <th style="border: 1px solid #ffffff;">Pre set Max Speed</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="setSpeed"></span></td>
+                    <th >Fitment Certificate No</th>
+                    <td  > <span class="fitmentcerti"></span></td>
+                    <th >Invoice No.</th>
+                    <td  > <span class="invoiceNo"></span></td>
+                    <th >Pre set Max Speed</th>
+                    <td  > <span class="setSpeed"></span></td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">SG Model</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span >CTZESGM09</span></td>
-                    <th style="border: 1px solid #ffffff;">Invoice Date</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="dated"></span></td>
-                    <th style="border: 1px solid #ffffff;">COP Date</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="copDate"></span></td>
+                    <th >SG Model</th>
+                    <td  > <span >CTZESGM09</span></td>
+                    <th >Invoice Date</th>
+                    <td  > <span class="dated"></span></td>
+                    <th >COP Date</th>
+                    <td  > <span class="copDate"></span></td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">Seal No.</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span >0</span></td>
-                    <th style="border: 1px solid #ffffff;">Report Date</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span class="reportDate"></span></td>
-                    <th style="border: 1px solid #ffffff;">Testing Agency</th>
-                    <td style="border: 1px solid #ffffff;" ><strong style="font-weight: 800;">:</strong> <span >0</span></td>
+                    <th >Seal No.</th>
+                    <td  > <span >0</span></td>
+                    <th >Report Date</th>
+                    <td  > <span class="reportDate"></span></td>
+                    <th >Testing Agency</th>
+                    <td  > <span >ARAI</span></td>
                 </tr>
             </table>
             
@@ -701,53 +717,56 @@
                     </th>
                 </tr>
             </table>
-            <p style="font-size: 7pt; font-weight:800;margin-top: 30px; text-align: center;margin-bottom: 0;">PRODUCT SATISFACTION REPORT</p>
-            <p style="margin-bottom: 0;">This is to acknowledge and confirm that we have got our vehicle bearing registration No. <strong><span class="regNo"></span></strong>  Limitation Device manufactured by M/s <strong> Containe Technologies Pvt Ltd.</strong> 
+            <p style="font-size: 7pt; font-weight:800;margin-top: 10px; text-align: center;margin-bottom: 0;">PRODUCT SATISFACTION REPORT</p>
+            <p style="margin-bottom: 0;">This is to acknowledge and confirm that we have got our vehicle bearing registration No. <strong><span class="regNo"></span></strong>  Limitation Device manufactured by M/s <strong> Containe Technologies Limited</strong> 
                 Bearing Sr.No.<strong><span class="serialNo"></span></strong> And Batch No <strong><span class="batchNo"></span></strong>. We have checked the performance of the vehicle after fitment of the said Speed Limitation Device and we confirm that the speed of 
                 the vehicle is set to <strong><span class="setSpeed"></span></strong> and the unit is sealed at <strong>EFRT-B ,EFRT-L, EFRT-R, Sensor, FIP, Filter</strong> Points and function in gas per norms laid out in AIS 018.We are satisfied with 
                 the performance of the unit in all respects.</p>
-            <p>We undertake not to raise any dispute or any legal claims against M/s <strong>Containe Technologies Pvt Limited</strong> In the event that the above mentioned seals are found broken/torn/tampered and 
+            <p style="margin-bottom: 0;">We undertake not to raise any dispute or any legal claims against M/s <strong>Containe Technologies Limited</strong> In the event that the above mentioned seals are found broken/torn/tampered and 
                 more specifically with the respect to any variance in the speed limit set at the time of delivery, after expiry of warranty period of 12 months from the date of installation.</p>
-            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 5px;">
                 <tr>
-                    <th style="width: 3%; border: 1px solid #ffffff;">Date & Time</th>
-                    <td style="width: 20%; border: 1px solid #ffffff;"class="p3dateTime"></td>
+                    <th style="width: 3%; ">Date & Time</th>
+                    <td style="width: 20%; "class="p3dateTime"></td>
                     
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">Name of the Customer</th>
-                    <td style="border: 1px solid #ffffff;" class="customerName"></td>
+                    <th >Name of the Customer</th>
+                    <td  class="customerName"></td>
                     
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">Address</th>
-                    <td style="border: 1px solid #ffffff;" class="address"></td>
+                    <th >Address</th>
+                    <td  class="address"></td>
                     
                 </tr>
                 <tr>
-                    <th style="border: 1px solid #ffffff;">Mobile Number</th>
-                    <td style="border: 1px solid #ffffff;" class="phoneNo"></td>
+                    <th >Mobile Number</th>
+                    <td  class="phoneNo"></td>
                     
                 </tr>
             </table>
 
 
 
-            <div class="row align-items-end text-center" style="min-height: 100px; margin-top: 10px; ">
+            <div class="row align-items-end text-center" style="min-height: 100px; margin-top: 30px; ">
+                <div class="col-md-2 d-flex align-items-end justify-content-center">
+                   
+                </div>
             
-                <div class="col-md-4 d-flex align-items-end justify-content-center">
+                <div class="col-md-3 d-flex align-items-end justify-content-center">
                     <p><strong>Dealer Seal & Signature</strong></p>
                 </div>
             
                 
-                <div class="col-md-4 d-flex align-items-end justify-content-center">
+                <div class="col-md-3 d-flex align-items-end justify-content-center">
                     <p><strong>Customer Signature </strong></p>
                 </div>
             
                 
                 <div class="col-md-4 text-center">
-                    <p>For <strong>Containe Technologies Private Limited</strong></p>
-                    <div class="d-flex justify-content-right align-items-center">
+                    <p>For <strong>Containe Technologies Limited</strong></p>
+                    <div class="d-flex justify-content-right align-items-center gap-3">
                         <img src="assets\img\ctpl-stamp.png" alt="Stamp" class="stamp-img">
                         <img src="assets\img\ctpl-sign.png" alt="Signature" class="sign-img">
                     </div>

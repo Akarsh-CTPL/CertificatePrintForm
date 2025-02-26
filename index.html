@@ -244,6 +244,8 @@
         }
 
 
+     
+
         #loadingOverlay {
             display: none; /* Hide it initially */
             position: fixed;
@@ -378,6 +380,7 @@
             100%    {transform: scale(1.0); opacity: 1.0;}
         }
 
+         
 
 
 
@@ -408,10 +411,7 @@
             <div class="card">
                 <h4>R.T.O. & State Details</h4>
                 <div class="row">
-                    <!-- <div class="col-md-6 form-group">
-                        <label>RTO:</label>
-                        <input type="text" class="form-control sync-input" data-field="rtoDet" oninput="updatePreview()">
-                    </div> -->
+                    
                     <div class="col-md-6 form-group">
                         <label>State Name (All caps):</label>
                         <input type="text" class="form-control sync-input" data-field="stateName" oninput="updatePreview()">
@@ -533,30 +533,17 @@
             <div class="card">
                 <h4>Technical Details</h4>
                 <div class="row">
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Model:</label>
-                        <input type="text" class="form-control sync-input" data-field="model" oninput="updatePreview()">
-                    </div> -->
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Part No:</label>
-                        <input type="text" class="form-control sync-input" data-field="partNo" oninput="updatePreview()">
-                    </div> -->
+                   
                     <div class="col-md-6 form-group">
                         <label>SLD No:</label>
                         <input type="text" class="form-control sync-input" data-field="sldNo" oninput="updatePreview()">
                     </div>
-                    <!-- <div class="col-md-6 form-group">
-                        <label>TAC No:</label>
-                        <input type="text" class="form-control sync-input" data-field="tacNo" oninput="updatePreview()">
-                    </div> -->
+                  
                     <div class="col-md-6 form-group">
                         <label>Set Speed:</label>
                         <input type="text" class="form-control sync-input" data-field="setSpeed" oninput="updatePreview()">
                     </div>
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Voltage:</label>
-                        <input type="text" class="form-control sync-input" data-field="voltage" oninput="updatePreview()">
-                    </div> -->
+                    
 
                    
                 </div>
@@ -624,46 +611,22 @@
             <div class="card">
                 <h5>Speed Governor Details :</h5>
                 <div class="row">
-                    <!-- <div class="col-md-6 form-group">
-                        <label>SG Serial No:</label>
-                        <input type="text" class="form-control sync-input" data-field="sgSerialNo" oninput="updatePreview()">
-                    </div> -->
-                    <!-- <div class="col-md-6 form-group">
-                        <label>SG Type:</label>
-                        <input type="text" class="form-control sync-input" data-field="sgType" oninput="updatePreview()">
-                    </div> -->
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Report No.:</label>
-                        <input type="text" class="form-control sync-input" data-field="reportNo" oninput="updatePreview()">
-                    </div> -->
+                 
                     <div class="col-md-6 form-group">
                         <label>Fitment Certificate No.:</label>
                         <input type="text" class="form-control sync-input" data-field="fitmentcerti" oninput="updatePreview()">
                     </div>
-                    <!-- <div class="col-md-6 form-group">
-                        <label>SG Model:</label>
-                        <input type="text" class="form-control sync-input" data-field="sgModel" oninput="updatePreview()">
-                    </div> -->
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Invoice Date:</label>
-                        <input type="text" class="form-control sync-input" data-field="invoiceDate" oninput="updatePreview()">
-                    </div>    -->
+                   
                     <div class="col-md-6 form-group">
                         <label>COP Date:</label>
                         <input type="date" class="form-control sync-input" data-field="copDate" oninput="updatePreview()">
                     </div>               
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Seal No.:</label>
-                        <input type="text" class="form-control sync-input" data-field="sealNo" oninput="updatePreview()">
-                    </div>    -->
+                    
                     <div class="col-md-6 form-group">
                         <label>Report Date:</label>
                         <input type="date" class="form-control sync-input" data-field="reportDate" oninput="updatePreview()">
                     </div>   
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Testing Agency:</label>
-                        <input type="text" class="form-control sync-input" data-field="testingAgency" oninput="updatePreview()">
-                    </div>       -->
+                   
                 </div>
 
             </div>
@@ -676,10 +639,7 @@
                         <label>Date & Time:</label>
                         <input type="text" class="form-control sync-input" data-field="p3dateTime" oninput="updatePreview()">
                     </div>
-                    <!-- <div class="col-md-6 form-group">
-                        <label>Batch No.:</label>
-                        <input type="text" class="form-control sync-input" data-field="batchNo" oninput="updatePreview()">
-                    </div> -->
+                  
                     
                 </div>
 
@@ -751,8 +711,7 @@
                 
     </div>
 
-
-    <!-- Loading Overlay -->
+   <!-- Loading Overlay -->
     <div id="loadingOverlay" style="display: none;">
         <div class="loadingspinner">
             <div id="square1"></div>
@@ -761,8 +720,9 @@
             <div id="square4"></div>
             <div id="square5"></div>
         </div>
-        <p>Generating PDF, please wait...</p>
+        <p id="loadingspinner"></p>
     </div>
+
 
 
     <div id="app" style="--zoom: 1">
@@ -787,21 +747,20 @@
 
 
     <script>
-         
-         function updatePreview() {
+        function updatePreview() {
             document.querySelectorAll(".sync-input").forEach(input => {
                 let field = input.getAttribute("data-field");
                 let value = input.value;
-
-                // Check if the input is of type 'date' and format it
+    
+                // Format date inputs to DD-MM-YYYY
                 if (input.type === "date" && value) {
                     let dateObj = new Date(value);
                     let day = String(dateObj.getDate()).padStart(2, '0');
-                    let month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+                    let month = String(dateObj.getMonth() + 1).padStart(2, '0');
                     let year = dateObj.getFullYear();
-                    value = `${day}-${month}-${year}`; // Convert to DD-MM-YYYY
+                    value = `${day}-${month}-${year}`;
                 }
-
+    
                 let frame = document.getElementById("previewFrame");
                 if (frame.contentWindow && frame.contentWindow.document) {
                     frame.contentWindow.document.querySelectorAll("." + field).forEach(element => {
@@ -810,124 +769,142 @@
                 }
             });
         }
-
     
-     function previewCertificateImage(input, previewId) {
+        function previewCertificateImage(input, previewId) {
             const file = input.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     let frame = document.getElementById("previewFrame");
                     if (frame.contentWindow && frame.contentWindow.document) {
-                        frame.contentWindow.document.getElementById(previewId).innerHTML = 
+                        frame.contentWindow.document.getElementById(previewId).innerHTML =
                             `<img src="${e.target.result}" style="max-width: 130px; max-height: 130px;">`;
                     }
                 };
                 reader.readAsDataURL(file);
             }
         }
- 
+    
         async function downloadPDF() {
-            showLoading(); // Show spinner
-
+            document.getElementById("loadingspinner").innerText = "Fetchning Data, please wait...";
+            showLoading();
+            
+    
             requestAnimationFrame(async () => {
                 const { jsPDF } = window.jspdf;
-                const doc = new jsPDF({
-                    format: "a4",
-                    unit: "mm",
-                    orientation: "portrait"
-                });
-
+                const doc = new jsPDF({ format: "a4", unit: "mm", orientation: "portrait" });
+    
                 const frame = document.getElementById("previewFrame");
-
                 if (!frame.contentWindow || !frame.contentWindow.document) {
                     alert("Error: Preview frame is not loaded yet.");
                     hideLoading();
                     return;
                 }
 
+               
+
+    
                 const frameDoc = frame.contentWindow.document;
-                const page1 = frameDoc.getElementById("installationCertificate");
-                const page2 = frameDoc.getElementById("warrantyCertificate");
-                const page3 = frameDoc.getElementById("fitmentCertificate");
-
-                if (!page1 || !page2 || !page3) {
-                    alert("Error: Could not find all certificate pages in template.html. Ensure IDs match.");
-                    hideLoading();
-                    return;
-                }
-
+                const pages = ["installationCertificate", "warrantyCertificate", "fitmentCertificate"];
                 const pdfWidth = doc.internal.pageSize.getWidth();
                 const pdfHeight = doc.internal.pageSize.getHeight();
 
+                document.getElementById("loadingspinner").textContent = "Generating PDF, please wait...";
+    
                 async function addPageToPDF(pageElement, isFirstPage = false) {
-                    const canvas = await html2canvas(pageElement, {
-                        scale: 2,
-                        useCORS: true
-                    });
-
-                    if (!isFirstPage) {
-                        doc.addPage();
-                    }
-
+                    const canvas = await html2canvas(pageElement, { scale: 2, useCORS: true });
+                    if (!isFirstPage) doc.addPage();
                     doc.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, pdfWidth, pdfHeight);
                 }
+    
+                for (let i = 0; i < pages.length; i++) {
+                    let page = frameDoc.getElementById(pages[i]);
+                    if (!page) {
+                        alert(`Error: Could not find ${pages[i]} in template.html.`);
+                        hideLoading();
+                        return;
+                    }
+                    await addPageToPDF(page, i === 0);
+                }
+                
 
-                await addPageToPDF(page1, true);
-                await addPageToPDF(page2);
-                await addPageToPDF(page3);
-
+                await saveToGoogleSheet(); 
+                   
                 doc.save("certificate.pdf");
 
+                document.getElementById("loadingspinner").textContent = "Done!";
                 hideLoading();
             });
         }
-
-
-        // Function to show loading spinner
+    
         function showLoading() {
             document.getElementById("loadingOverlay").style.display = "flex";
         }
-
-        // Function to hide loading spinner
+    
         function hideLoading() {
             document.getElementById("loadingOverlay").style.display = "none";
+        }
+    
+        function updatePreviewCheckbox() {
+            let frame = document.getElementById("previewFrame");
+            if (frame.contentWindow && frame.contentWindow.document) {
+                let templateDoc = frame.contentWindow.document;
+                let indexCheckboxes = document.querySelectorAll(".sync-checkbox");
+                let templateCheckboxes = templateDoc.querySelectorAll(".tick-checkbox");
+    
+                indexCheckboxes.forEach((checkbox, i) => {
+                    if (templateCheckboxes[i]) {
+                        templateCheckboxes[i].checked = checkbox.checked;
+                    }
+                });
+    
+                if (templateDoc.defaultView.updateTickCount) {
+                    templateDoc.defaultView.updateTickCount();
+                }
+            }
+        }
+        async function saveToGoogleSheet() {
+            document.getElementById("loadingspinner").innerText = "Saving data to Google Sheet, please wait...";
+
+            let formData = {}; // ✅ Create object instead of URLSearchParams
+            document.querySelectorAll(".sync-input").forEach(input => {
+                let field = input.getAttribute("data-field");
+                formData[field] = input.value;
+            });
+
+            console.log("📤 Sending Data:", formData); // Debugging log
+
+            try {
+                let response = await fetch("https://script.google.com/macros/s/AKfycbzvDemDAE9BUOT6svMLtw1-k3qRVGKGkRIwDqxd0b3jDzPyLuy1Kvqu2mZpQFFCTiiSig/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData) // ✅ Properly send JSON
+                });
+
+                let result = await response.json();
+                console.log("📥 Response:", result); // Debugging log
+
+                if (result.status === "success") {
+                    document.getElementById("loadingspinner").innerText = "Data saved successfully!";
+                } else {
+                    document.getElementById("loadingspinner").innerText = "Error saving data!";
+                }
+            } catch (error) {
+                console.error("❌ Fetch Error:", error);
+                document.getElementById("loadingspinner").innerText = "Failed to save data.";
+            }
         }
 
 
 
+       
 
 
 
 
 
-
- 
-     function updatePreviewCheckbox() {
-             console.log("adsad")
-         let frame = document.getElementById("previewFrame");
- 
-         if (frame.contentWindow && frame.contentWindow.document) {
-             let templateDoc = frame.contentWindow.document;
-             let indexCheckboxes = document.querySelectorAll(".sync-checkbox");
-             let templateCheckboxes = templateDoc.querySelectorAll(".tick-checkbox");
- 
-             indexCheckboxes.forEach((checkbox, i) => {
-                 if (templateCheckboxes[i]) {
-                     templateCheckboxes[i].checked = checkbox.checked;
-                 }
-             });
- 
-             // Trigger tick count update inside template.html
-             if (templateDoc.defaultView.updateTickCount) {
-                 templateDoc.defaultView.updateTickCount();
-             }
-         }
-     }
-     
-
-  
-     </script>
+    </script>
+    
 
 </body>
 </html>

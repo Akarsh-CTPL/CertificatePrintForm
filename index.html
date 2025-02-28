@@ -866,23 +866,23 @@
         async function saveToGoogleSheet() {
             document.getElementById("loadingspinner").innerText = "Saving data to Google Sheet, please wait...";
 
-            let formData = {}; // ✅ Create object instead of URLSearchParams
+            let formData = {}; 
             document.querySelectorAll(".sync-input").forEach(input => {
                 let field = input.getAttribute("data-field");
                 formData[field] = input.value;
             });
 
-            console.log("📤 Sending Data:", formData); // Debugging log
+            
 
             try {
                 let response = await fetch("https://script.google.com/macros/s/AKfycbzvDemDAE9BUOT6svMLtw1-k3qRVGKGkRIwDqxd0b3jDzPyLuy1Kvqu2mZpQFFCTiiSig/exec", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData) // ✅ Properly send JSON
+                    body: JSON.stringify(formData) 
                 });
 
                 let result = await response.json();
-                console.log("📥 Response:", result); // Debugging log
+                console.log("Response:", result); 
 
                 if (result.status === "success") {
                     document.getElementById("loadingspinner").innerText = "Data saved successfully!";
@@ -890,7 +890,7 @@
                     document.getElementById("loadingspinner").innerText = "Error saving data!";
                 }
             } catch (error) {
-                console.error("❌ Fetch Error:", error);
+                console.error("Fetch Error:", error);
                 document.getElementById("loadingspinner").innerText = "Failed to save data.";
             }
         }

@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* Header Styling */
         .curved {
             width: 100%;
             background: var(--primary-purple);
@@ -38,14 +37,12 @@
             padding: 0 20px;
         }
 
-        /* The Card with Purple Border */
         .card {
             background: white;
             padding: 35px 25px;
             border-radius: 28px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            /* Rock Solid Purple Border */
-            border: 1px solid var(--primary-purple);
+            border: 4px solid var(--primary-purple);
         }
 
         .card h4 {
@@ -67,7 +64,6 @@
             text-align: center;
         }
 
-        /* Modern Select Group */
         .select-group {
             display: flex;
             gap: 10px;
@@ -95,10 +91,8 @@
         .custom-select:focus {
             outline: none;
             border-color: var(--primary-purple);
-            background-color: #fcfaff;
         }
 
-        /* Dynamic Result Section */
         .result-display {
             display: none;
             margin-top: 25px;
@@ -112,7 +106,6 @@
 
         @keyframes bounceIn {
             0% { opacity: 0; transform: scale(0.8); }
-            70% { transform: scale(1.05); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -122,7 +115,7 @@
             background: var(--primary-purple);
             color: white;
             border-radius: 50px;
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 700;
             margin-bottom: 15px;
         }
@@ -145,18 +138,11 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 600;
-            transition: color 0.2s;
         }
 
-        .back-link:hover {
-            color: var(--primary-purple);
-        }
-
-        /* Mobile Optimization */
         @media (max-width: 400px) {
             .select-group { flex-direction: column; }
             .plan-text { font-size: 24px; }
-            .card { padding: 25px 15px; }
         }
     </style>
 </head>
@@ -171,7 +157,7 @@
 
     <div class="container-main">
         <div class="card">
-            <h4>Check RC Eligibility</h4>
+            <h4>- Check RC Eligibility -</h4>
             
             <label class="input-label">Registration Month & Year</label>
             <div class="select-group">
@@ -211,10 +197,8 @@
     </div>
 
     <script>
-        // Automatically populate Year dropdown
         const yearSelect = document.getElementById('regYear');
         const currentYear = new Date().getFullYear();
-        // Generates from current year back to 40 years ago
         for (let i = currentYear; i >= currentYear - 40; i--) {
             let option = document.createElement('option');
             option.value = i;
@@ -223,27 +207,31 @@
         }
 
         function calculatePlan() {
-            const month = document.getElementById('regMonth').value;
-            const year = document.getElementById('regYear').value;
+            const regMonth = parseInt(document.getElementById('regMonth').value);
+            const regYear = parseInt(document.getElementById('regYear').value);
             const resultContainer = document.getElementById('resultContainer');
             const planOutput = document.getElementById('planOutput');
             const vehicleAgeText = document.getElementById('vehicleAge');
 
-            // Wait until both are selected
-            if (month === "" || year === "") return;
+            if (isNaN(regMonth) || isNaN(regYear)) return;
 
-            const regDate = new Date(year, month, 1); 
             const today = new Date();
+            const currMonth = today.getMonth();
+            const currYear = today.getFullYear();
 
-            // Precise calculation using time difference
-            const diffInMs = today - regDate;
-            const ageInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+            // Calculate total months difference
+            // (Current Year - Reg Year) * 12 + (Current Month - Reg Month)
+            const totalMonths = (currYear - regYear) * 12 + (currMonth - regMonth);
+            
+            // 8 years = 96 months. 
+            // If totalMonths is 96 or less, it's a 2 year plan.
+            // If totalMonths is 97 or more, it's a 1 year plan.
+            let selectedPlan = totalMonths > 96 ? "1 YEAR PLAN" : "2 YEAR PLAN";
 
-            // 8-year rule implementation
-            let selectedPlan = ageInYears > 8 ? "1 YEAR PLAN" : "2 YEAR PLAN";
+            const displayYears = Math.floor(totalMonths / 12);
+            const displayMonths = totalMonths % 12;
 
-            // Visual feedback
-            vehicleAgeText.innerText = `AGE: ~${Math.floor(ageInYears)} YEARS`;
+            vehicleAgeText.innerText = `AGE: ${displayYears}y ${displayMonths}m`;
             planOutput.innerText = selectedPlan;
             resultContainer.style.display = 'block';
         }

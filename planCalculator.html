@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validity Plan Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-purple: #4e2d87;
+            --light-purple: #f0e7ff;
+            --bg-gray: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        .curved {
+            width: 100%;
+            background: var(--primary-purple);
+            color: white; 
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .container-main {
+            max-width: 480px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+        }
+
+        /* The Card with Purple Border */
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            /* Rock Solid Purple Border */
+            border: 1px solid var(--primary-purple);
+        }
+
+        .card h4 {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--primary-purple);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Modern Select Group */
+        .select-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .custom-select {
+            flex: 1;
+            appearance: none;
+            background-color: #fff;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 14px 15px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e2d87' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+        }
+
+        .custom-select:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            background-color: #fcfaff;
+        }
+
+        /* Dynamic Result Section */
+        .result-display {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            background: var(--light-purple);
+            border: 1px solid rgba(78, 45, 135, 0.1);
+            animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .age-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary-purple);
+            color: white;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .plan-text {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary-purple);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .footer-links {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-purple);
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 400px) {
+            .select-group { flex-direction: column; }
+            .plan-text { font-size: 24px; }
+            .card { padding: 25px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="curved">                                 
+        <h2 style="font-weight: 800;">Plan Calculator</h2>               
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1430 80">
+            <path fill="#f8f9fa" d="M-1,35 C120,50,240,30,360,40 C480,50,600,30,720,40 C840,50,960,30,1080,40 C1200,50,1320,30,1440,35L1440,83L0,83Z"></path>
+        </svg>
+    </div>
+
+    <div class="container-main">
+        <div class="card">
+            <h4>Check RC Eligibility</h4>
+            
+            <label class="input-label">Registration Month & Year</label>
+            <div class="select-group">
+                <select id="regMonth" class="custom-select" onchange="calculatePlan()">
+                    <option value="" disabled selected>Month</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+
+                <select id="regYear" class="custom-select" onchange="calculatePlan()">
+                    <option value="" disabled selected>Year</option>
+                </select>
+            </div>
+
+            <div id="resultContainer" class="result-display">
+                <span class="age-badge" id="vehicleAge"></span>
+                <p style="font-size: 12px; color: #777; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px;">RECOMMENDED VALIDITY</p>
+                <div class="plan-text" id="planOutput"></div>
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html" class="back-link">
+                    <i class="bi bi-arrow-left"></i> BACK TO CERTIFICATE FORM
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Automatically populate Year dropdown
+        const yearSelect = document.getElementById('regYear');
+        const currentYear = new Date().getFullYear();
+        // Generates from current year back to 40 years ago
+        for (let i = currentYear; i >= currentYear - 40; i--) {
+            let option = document.createElement('option');
+            option.value = i;
+            option.text = i;
+            yearSelect.appendChild(option);
+        }
+
+        function calculatePlan() {
+            const month = document.getElementById('regMonth').value;
+            const year = document.getElementById('regYear').value;
+            const resultContainer = document.getElementById('resultContainer');
+            const planOutput = document.getElementById('planOutput');
+            const vehicleAgeText = document.getElementById('vehicleAge');
+
+            // Wait until both are selected
+            if (month === "" || year === "") return;
+
+            const regDate = new Date(year, month, 1); 
+            const today = new Date();
+
+            // Precise calculation using time difference
+            const diffInMs = today - regDate;
+            const ageInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+
+            // 8-year rule implementation
+            let selectedPlan = ageInYears > 8 ? "1 YEAR PLAN" : "2 YEAR PLAN";
+
+            // Visual feedback
+            vehicleAgeText.innerText = `AGE: ~${Math.floor(ageInYears)} YEARS`;
+            planOutput.innerText = selectedPlan;
+            resultContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

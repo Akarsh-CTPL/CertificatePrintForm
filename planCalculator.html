@@ -48,11 +48,27 @@
         .card h4 {
             font-size: 15px;
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             color: var(--primary-purple);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-align: center;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: var(--bg-gray);
+            border-radius: 12px;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-purple);
+            border-color: var(--primary-purple);
         }
 
         .input-label {
@@ -66,7 +82,7 @@
 
         .select-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 20px;
         }
 
@@ -76,21 +92,16 @@
             background-color: #fff;
             border: 2px solid #eee;
             border-radius: 12px;
-            padding: 14px 15px;
-            font-size: 16px;
+            padding: 12px 10px;
+            font-size: 14px;
             font-weight: 600;
             color: #333;
             cursor: pointer;
             transition: all 0.2s ease;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e2d87' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 12px;
-        }
-
-        .custom-select:focus {
-            outline: none;
-            border-color: var(--primary-purple);
+            background-position: right 8px center;
+            background-size: 10px;
         }
 
         .result-display {
@@ -115,7 +126,7 @@
             background: var(--primary-purple);
             color: white;
             border-radius: 50px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             margin-bottom: 15px;
         }
@@ -128,21 +139,28 @@
             line-height: 1.1;
         }
 
-        .footer-links {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .back-link {
-            color: #888;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        @media (max-width: 400px) {
-            .select-group { flex-direction: column; }
-            .plan-text { font-size: 24px; }
+        /* Mobile Optimization - FIXED SPACING */
+        @media (max-width: 450px) {
+            .curved {
+                padding-top: 60px; /* More space for the title */
+                
+            }
+            .container-main { 
+                margin-top: 10px; /* Reduced overlap so it doesn't hit the text */
+                padding: 0 15px;
+            }
+            .select-group { 
+                flex-direction: column; 
+            }
+            .plan-text { 
+                font-size: 24px; 
+            }
+            .card { 
+                padding: 25px 15px; 
+            }
+            .card h4 {
+                font-size: 13px; /* Slightly smaller sub-header for mobile */
+            }
         }
     </style>
 </head>
@@ -157,83 +175,127 @@
 
     <div class="container-main">
         <div class="card">
-            <h4>- Check RC Eligibility -</h4>
+            <h4>Check RC Eligibility</h4>
             
-            <label class="input-label">Registration Month & Year</label>
+            <div class="toggle-container">
+                <span style="font-size: 11px; font-weight: 700; color: #888;">MONTH ONLY</span>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="precisionToggle" onchange="toggleDate()">
+                </div>
+                <span style="font-size: 11px; font-weight: 700; color: var(--primary-purple);">INCLUDE DATE</span>
+            </div>
+
+            <label class="input-label" id="selectionLabel">Select Month & Year</label>
+            
             <div class="select-group">
-                <select id="regMonth" class="custom-select" onchange="calculatePlan()">
-                    <option value="" disabled selected>Month</option>
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
+                <select id="regDay" class="custom-select" onchange="calculatePlan()" style="display:none;">
+                    <option value="" disabled selected>Day</option>
                 </select>
 
-                <select id="regYear" class="custom-select" onchange="calculatePlan()">
+                <select id="regMonth" class="custom-select" onchange="updateDays(); calculatePlan();">
+                    <option value="" disabled selected>Month</option>
+                    <option value="0">Jan</option><option value="1">Feb</option>
+                    <option value="2">Mar</option><option value="3">Apr</option>
+                    <option value="4">May</option><option value="5">Jun</option>
+                    <option value="6">Jul</option><option value="7">Aug</option>
+                    <option value="8">Sep</option><option value="9">Oct</option>
+                    <option value="10">Nov</option><option value="11">Dec</option>
+                </select>
+
+                <select id="regYear" class="custom-select" onchange="updateDays(); calculatePlan();">
                     <option value="" disabled selected>Year</option>
                 </select>
             </div>
 
             <div id="resultContainer" class="result-display">
                 <span class="age-badge" id="vehicleAge"></span>
-                <p style="font-size: 12px; color: #777; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px;">RECOMMENDED VALIDITY</p>
+                <p style="font-size: 11px; color: #777; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px;">RECOMMENDED VALIDITY</p>
                 <div class="plan-text" id="planOutput"></div>
             </div>
-
-            <!-- <div class="footer-links">
-                <a href="index.html" class="back-link">
-                    <i class="bi bi-arrow-left"></i> BACK TO CERTIFICATE FORM
-                </a>
-            </div> -->
         </div>
     </div>
 
     <script>
         const yearSelect = document.getElementById('regYear');
+        const daySelect = document.getElementById('regDay');
         const currentYear = new Date().getFullYear();
+
+        // Init Years
         for (let i = currentYear; i >= currentYear - 40; i--) {
             let option = document.createElement('option');
-            option.value = i;
-            option.text = i;
+            option.value = i; option.text = i;
             yearSelect.appendChild(option);
         }
 
-        function calculatePlan() {
-            const regMonth = parseInt(document.getElementById('regMonth').value);
-            const regYear = parseInt(document.getElementById('regYear').value);
-            const resultContainer = document.getElementById('resultContainer');
-            const planOutput = document.getElementById('planOutput');
-            const vehicleAgeText = document.getElementById('vehicleAge');
+        function updateDays() {
+            const month = document.getElementById('regMonth').value;
+            const year = document.getElementById('regYear').value;
+            if (month === "" || year === "") return;
 
-            if (isNaN(regMonth) || isNaN(regYear)) return;
+            const daysInMonth = new Date(year, parseInt(month) + 1, 0).getDate();
+            const currentSelectedDay = daySelect.value;
+            
+            daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
+            for (let i = 1; i <= daysInMonth; i++) {
+                let option = document.createElement('option');
+                option.value = i; option.text = i;
+                daySelect.appendChild(option);
+            }
+            if (currentSelectedDay <= daysInMonth) daySelect.value = currentSelectedDay;
+        }
+
+        function toggleDate() {
+            const isChecked = document.getElementById('precisionToggle').checked;
+            daySelect.style.display = isChecked ? "block" : "none";
+            document.getElementById('selectionLabel').innerText = isChecked ? "Select Full Date" : "Select Month & Year";
+            updateDays();
+            calculatePlan();
+        }
+
+        function calculatePlan() {
+            const day = parseInt(document.getElementById('regDay').value);
+            const month = parseInt(document.getElementById('regMonth').value);
+            const year = parseInt(document.getElementById('regYear').value);
+            const isDateIncluded = document.getElementById('precisionToggle').checked;
+            
+            if (isNaN(month) || isNaN(year)) return;
+            if (isDateIncluded && isNaN(day)) return;
 
             const today = new Date();
-            const currMonth = today.getMonth();
-            const currYear = today.getFullYear();
+            let selectedPlan = "";
+            let ageDisplay = "";
 
-            // Calculate total months difference
-            // (Current Year - Reg Year) * 12 + (Current Month - Reg Month)
-            const totalMonths = (currYear - regYear) * 12 + (currMonth - regMonth);
-            
-            // 8 years = 96 months. 
-            // If totalMonths is 96 or less, it's a 2 year plan.
-            // If totalMonths is 97 or more, it's a 1 year plan.
-            let selectedPlan = totalMonths > 96 ? "1 YEAR PLAN" : "2 YEAR PLAN";
+            if (isDateIncluded) {
+                const regDate = new Date(year, month, day);
+                // Cutoff is exactly 8 years ago from today
+                const cutoffDate = new Date(today.getFullYear() - 8, today.getMonth(), today.getDate());
 
-            const displayYears = Math.floor(totalMonths / 12);
-            const displayMonths = totalMonths % 12;
+                // If regDate is earlier than cutoff, it is > 8 years old
+                selectedPlan = (regDate < cutoffDate) ? "1 YEAR PLAN" : "2 YEAR PLAN";
 
-            vehicleAgeText.innerText = `AGE: ${displayYears}y ${displayMonths}m`;
-            planOutput.innerText = selectedPlan;
-            resultContainer.style.display = 'block';
+                // Precise Age Calculation
+                let y = today.getFullYear() - regDate.getFullYear();
+                let m = today.getMonth() - regDate.getMonth();
+                let d = today.getDate() - regDate.getDate();
+
+                if (d < 0) {
+                    m--;
+                    d += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                }
+                if (m < 0) {
+                    y--;
+                    m += 12;
+                }
+                ageDisplay = `AGE: ${y}y ${m}m ${d}d`;
+            } else {
+                const totalMonths = (today.getFullYear() - year) * 12 + (today.getMonth() - month);
+                selectedPlan = totalMonths > 96 ? "1 YEAR PLAN" : "2 YEAR PLAN";
+                ageDisplay = `AGE: ${Math.floor(totalMonths/12)}y ${totalMonths%12}m`;
+            }
+
+            document.getElementById('vehicleAge').innerText = ageDisplay;
+            document.getElementById('planOutput').innerText = selectedPlan;
+            document.getElementById('resultContainer').style.display = 'block';
         }
     </script>
 </body>

@@ -97,11 +97,23 @@
             font-weight: 600;
             color: #333;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234e2d87' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 8px center;
             background-size: 10px;
+        }
+
+        .custom-select:hover {
+            border-color: #ccc;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-select:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 4px rgba(78, 45, 135, 0.15);
         }
 
         .result-display {
@@ -139,28 +151,37 @@
             line-height: 1.1;
         }
 
-        /* Mobile Optimization - FIXED SPACING */
+        /* Reset Button Styling */
+        .btn-reset {
+            margin-top: 20px;
+            background: transparent;
+            color: var(--primary-purple);
+            border: 1px solid var(--primary-purple);
+            border-radius: 10px;
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-reset:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
         @media (max-width: 450px) {
-            .curved {
-                padding-top: 60px; /* More space for the title */
-                
-            }
-            .container-main { 
-                margin-top: 10px; /* Reduced overlap so it doesn't hit the text */
-                padding: 0 15px;
-            }
-            .select-group { 
-                flex-direction: column; 
-            }
-            .plan-text { 
-                font-size: 24px; 
-            }
-            .card { 
-                padding: 25px 15px; 
-            }
-            .card h4 {
-                font-size: 13px; /* Slightly smaller sub-header for mobile */
-            }
+            .curved { padding-top: 60px; }
+            .container-main { margin-top: 10px; padding: 0 15px; }
+            .select-group { flex-direction: column; }
+            .plan-text { font-size: 24px; }
+            .card { padding: 25px 15px; }
+            .card h4 { font-size: 13px; }
         }
     </style>
 </head>
@@ -185,11 +206,11 @@
                 <span style="font-size: 11px; font-weight: 700; color: var(--primary-purple);">INCLUDE DATE</span>
             </div>
 
-            <label class="input-label" id="selectionLabel">Select Month & Year</label>
+            <label class="input-label" id="selectionLabel">Select Year & Month</label>
             
             <div class="select-group">
-                <select id="regDay" class="custom-select" onchange="calculatePlan()" style="display:none;">
-                    <option value="" disabled selected>Day</option>
+                <select id="regYear" class="custom-select" onchange="updateDays(); calculatePlan();">
+                    <option value="" disabled selected>Year</option>
                 </select>
 
                 <select id="regMonth" class="custom-select" onchange="updateDays(); calculatePlan();">
@@ -202,8 +223,8 @@
                     <option value="10">Nov</option><option value="11">Dec</option>
                 </select>
 
-                <select id="regYear" class="custom-select" onchange="updateDays(); calculatePlan();">
-                    <option value="" disabled selected>Year</option>
+                <select id="regDay" class="custom-select" onchange="calculatePlan()" style="display:none;">
+                    <option value="" disabled selected>Day</option>
                 </select>
             </div>
 
@@ -212,50 +233,57 @@
                 <p style="font-size: 11px; color: #777; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px;">RECOMMENDED VALIDITY</p>
                 <div class="plan-text" id="planOutput"></div>
             </div>
+
+            <button class="btn btn-reset" onclick="resetCalculator()">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset
+            </button>
         </div>
     </div>
 
     <script>
         const yearSelect = document.getElementById('regYear');
+        const monthSelect = document.getElementById('regMonth');
         const daySelect = document.getElementById('regDay');
         const currentYear = new Date().getFullYear();
 
-        // Init Years
-        for (let i = currentYear; i >= currentYear - 40; i--) {
-            let option = document.createElement('option');
-            option.value = i; option.text = i;
-            yearSelect.appendChild(option);
+        function initYears() {
+            yearSelect.innerHTML = '<option value="" disabled selected>Year</option>';
+            for (let i = currentYear; i >= currentYear - 40; i--) {
+                let option = document.createElement('option');
+                option.value = i; option.text = i;
+                yearSelect.appendChild(option);
+            }
         }
 
         function updateDays() {
-            const month = document.getElementById('regMonth').value;
-            const year = document.getElementById('regYear').value;
+            const month = monthSelect.value;
+            const year = yearSelect.value;
             if (month === "" || year === "") return;
-
             const daysInMonth = new Date(year, parseInt(month) + 1, 0).getDate();
             const currentSelectedDay = daySelect.value;
-            
             daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
             for (let i = 1; i <= daysInMonth; i++) {
                 let option = document.createElement('option');
                 option.value = i; option.text = i;
                 daySelect.appendChild(option);
             }
-            if (currentSelectedDay <= daysInMonth) daySelect.value = currentSelectedDay;
+            if (currentSelectedDay !== "" && currentSelectedDay <= daysInMonth) {
+                daySelect.value = currentSelectedDay;
+            }
         }
 
         function toggleDate() {
             const isChecked = document.getElementById('precisionToggle').checked;
             daySelect.style.display = isChecked ? "block" : "none";
-            document.getElementById('selectionLabel').innerText = isChecked ? "Select Full Date" : "Select Month & Year";
+            document.getElementById('selectionLabel').innerText = isChecked ? "Select Full Date" : "Select Year & Month";
             updateDays();
             calculatePlan();
         }
 
         function calculatePlan() {
-            const day = parseInt(document.getElementById('regDay').value);
-            const month = parseInt(document.getElementById('regMonth').value);
-            const year = parseInt(document.getElementById('regYear').value);
+            const day = parseInt(daySelect.value);
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
             const isDateIncluded = document.getElementById('precisionToggle').checked;
             
             if (isNaN(month) || isNaN(year)) return;
@@ -267,25 +295,13 @@
 
             if (isDateIncluded) {
                 const regDate = new Date(year, month, day);
-                // Cutoff is exactly 8 years ago from today
                 const cutoffDate = new Date(today.getFullYear() - 8, today.getMonth(), today.getDate());
-
-                // If regDate is earlier than cutoff, it is > 8 years old
                 selectedPlan = (regDate < cutoffDate) ? "1 YEAR PLAN" : "2 YEAR PLAN";
-
-                // Precise Age Calculation
                 let y = today.getFullYear() - regDate.getFullYear();
                 let m = today.getMonth() - regDate.getMonth();
                 let d = today.getDate() - regDate.getDate();
-
-                if (d < 0) {
-                    m--;
-                    d += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-                }
-                if (m < 0) {
-                    y--;
-                    m += 12;
-                }
+                if (d < 0) { m--; d += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+                if (m < 0) { y--; m += 12; }
                 ageDisplay = `AGE: ${y}y ${m}m ${d}d`;
             } else {
                 const totalMonths = (today.getFullYear() - year) * 12 + (today.getMonth() - month);
@@ -297,6 +313,19 @@
             document.getElementById('planOutput').innerText = selectedPlan;
             document.getElementById('resultContainer').style.display = 'block';
         }
+
+        function resetCalculator() {
+            document.getElementById('precisionToggle').checked = false;
+            daySelect.style.display = "none";
+            document.getElementById('selectionLabel').innerText = "Select Year & Month";
+            monthSelect.value = "";
+            yearSelect.value = "";
+            daySelect.innerHTML = '<option value="" disabled selected>Day</option>';
+            document.getElementById('resultContainer').style.display = 'none';
+        }
+
+        // Run on load
+        initYears();
     </script>
 </body>
 </html>
